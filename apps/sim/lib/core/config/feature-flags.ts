@@ -68,16 +68,6 @@ const FEATURE_FLAGS = {
       'models. Global on/off only; disabled uses Astra with simplified effort labels.',
     fallback: 'MSHIP_MODEL_SELECTOR',
   },
-  'mothership-memory-spaces': {
-    description: 'Enable private Graphiti memory and its graph-management settings in Mothership.',
-    fallback: null,
-  },
-  'mothership-plan-mode': {
-    description:
-      'Show and admit Mothership Plan conversations. Global on/off only, shared by organization ' +
-      'and workspace surfaces.',
-    fallback: 'MSHIP_PLAN_MODE',
-  },
   'mothership-desktop-background-executor': {
     description:
       "Let the Sim desktop app run a chat's desktop tools in the background, so work continues " +
