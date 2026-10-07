@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { SettingsNavigationProvider } from '@/components/settings/settings-navigation-provider'
 import { getSession } from '@/lib/auth'
 import { getActiveOrganizationId } from '@/lib/auth/session-response'
+import { isComputerUseAvailable } from '@/lib/computer-use/availability.server'
 import { isDashboardsEnabled } from '@/lib/dashboards/feature-flag'
 import { isDesktopBackgroundExecutorEnabled } from '@/lib/desktop/executor/flag'
 import { isMothershipModelSelectorEnabled, isPlanModeEnabled } from '@/lib/mothership/feature-flags'
@@ -69,6 +70,7 @@ export default async function WorkspaceLayout({
     organizationHref,
     dashboardsEnabled,
     desktopBackgroundExecutorEnabled,
+    computerUseEnabled,
   ] = await Promise.all([
     cookies(),
     hostContext.hostOrganizationId
@@ -87,6 +89,7 @@ export default async function WorkspaceLayout({
     resolveOrganizationEntryPath(session),
     isDashboardsEnabled(hostContext.hostOrganizationId),
     isDesktopBackgroundExecutorEnabled(session.user.id),
+    isComputerUseAvailable(),
     prefetchWorkspaceAccess(queryClient, workspaceId, principal),
     prefetchWorkspaceForkAvailability(queryClient, workspaceId, principal, hostContext),
   ])
@@ -99,6 +102,7 @@ export default async function WorkspaceLayout({
           dashboards: dashboardsEnabled,
           'table-row-ttl': tableRowTtlEnabled,
           'mothership-model-selector': modelSelectorEnabled,
+          'mothership-computer-use': computerUseEnabled,
           'mothership-plan-mode': planModeEnabled,
           'mothership-desktop-background-executor': desktopBackgroundExecutorEnabled,
         }}
